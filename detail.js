@@ -11,29 +11,53 @@ const pokemonName = urlSearchParams.get('pokemon');
 console.log(pokemonName);
 
 PokeService.getDetail(pokemonName).then(pokemonObject => {
-    const myPokemon = new Pokemon(pokemonObject.name, pokemonObject.types, pokemonObject.abilities, pokemonObject.stats, pokemonObject.sprites.front_default);
-
+    const myPokemon = Pokemon.createPokemon(pokemonObject.name, pokemonObject.types, pokemonObject.abilities, pokemonObject.stats, pokemonObject.sprites.front_default);
+    imagePokemon(myPokemon);
     displayPokemon(myPokemon);
-    console.log('Data form db', pokemonObject);
 })
 
 
 
 function displayPokemon(pokemon) {
     console.log('nostro pokemon', pokemon);
-    
-    namePokemon(pokemon);
+    const pokedex = document.getElementById('section-div');
+    pokedex.innerHTML+=`
+        <section class="section-style">
+        <h1 class='title1'>${pokemon.name} </h1>
+            <img class='pokeImg' src='${pokemon.sprites}'>
+            <div class="type-container">
+                <span>${createTypes(pokemon)}</span>
+            </div>
+            <div class="ability-container">
+                <details>
+                    <summary> Ability </summary>
+                    <p>${createAbilities(pokemon)}</p>
+                </details>
+            </div>
+        </section>
+    `    
+}
+function createTypes(pokemon) {
+    return pokemon.type.join();
 }
 
-
-// Pokemon Name
-function namePokemon(pokemon){
-    const sectionID = document.getElementById('section-div')
-    const section = document.createElement('section');
-    const p = document.createElement('p');
-    const pNode = document.createTextNode(pokemon.name + ' ' + pokemon.type.join());
-
-    sectionID.appendChild(section);
-    section.appendChild(p);
-    p.appendChild(pNode);
+function createAbilities(pokemon) {
+    return pokemon.abilities.join();
 }
+/* <section class="section-style">
+            <img>
+            <div class="type-container">
+                
+            </div>
+            <div class="ability-container">
+                <details>
+                    <summary> Ability</summary>
+                    <p></p>
+                </details>
+            </div>
+        </section> */
+
+function imagePokemon(pokemon) {
+
+}
+
