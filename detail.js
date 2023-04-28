@@ -9,7 +9,7 @@ const pokemonName = urlSearchParams.get('pokemon');
 
 
 PokeService.getDetail(pokemonName).then(pokemonObject => {
-    const myPokemon = Pokemon.createPokemon(pokemonObject.name, pokemonObject.types, pokemonObject.stats, pokemonObject.abilities, pokemonObject.sprites.front_default);
+    const myPokemon = Pokemon.createPokemon(pokemonObject);
     
     displayPokemon(myPokemon);
 })

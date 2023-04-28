@@ -1,75 +1,51 @@
-class Pokemon{
-    // getAbilities(abilities){
-        
-        //     let tempArray = []
-        //     for (let i = 0; i < abilities.length; i++) {
-            //         const elementAbilities = abilities[i];
-            //         console.log('abilities ', elementAbilities);
-            //         tempArray.push(elementAbilities)
-            //     }
-            //     return tempArray;
-            // }
-            
-            //  getStats(stats){
-                //     let tempArray = []
-                //     for (let i = 0; i < stats.length; i++) {
-    //         const elementStats = stats[i];
-    //         tempArray.push(elementStats)
-    //     }
-    //     return tempArray;
-    // }
-    
-    //  getType(type){
-        //     let tempArray = []
-        //     for (let i = 0; i < type.length; i++) {
-            //         const elementType = type[i];
-            //         tempArray.push(elementType)
-            //     }
-            //     return tempArray;
-            // }
-            
-    constructor(name,type=[],stats=[],abilities=[],sprites){
-        this.name = name;
-        this.type= type;
-        this.abilities= abilities;
-        this.sprites= sprites;
-        this.stats=stats;
-    }
-            
-    addStat(name,baseValue){
-        const newStat= new Type(name,baseValue);
-        this.stats.push(newStat);
+class Pokemon {
+    static getAbilities(abilities) {
+
+        let tempArray = []
+        for (let i = 0; i < abilities.length; i++) {
+            const elementAbilities = abilities[i];
+            tempArray.push(elementAbilities.ability.name)
+        }
+        return tempArray;
     }
 
-    addType(name,url){
-        const newType= new Type(name,url);
-        this.types.push(newType);
+    static getStats(stats) {
+        let tempArray = []
+        for (let i = 0; i < stats.length; i++) {
+            const elementStats = stats[i];
+            const newStat=new Stat(elementStats.stat.name,elementStats.stat.base_stat)
+            tempArray.push(newStat)
+        }
+        return tempArray;
     }
 
-
-  static createPokemon(name,type=[],stats=[], abilities=[],sprites){
+    static getTypes(types) {
         const typeTemp = []
-        for (let i = 0; i < type.length; i++) {
-  //        const elementType = type[i].type.name;
-//          typeTemp.push(elementType)
-            let newType=new Type(type[i].type.name,type[i].type.url);
+        console.log(types);
+        for (let i = 0; i < types.length; i++) {
+            const elementType = types[i];
+            let newType = new Type(elementType.type.name, elementType.type.url);
             typeTemp.push(newType);
         }
-        
-        const abilityTemp=[];
-        for (let i = 0; i < abilities.length; i++) {
-            const elementAbilities = abilities[i].ability.name;
-            abilityTemp.push(elementAbilities)
-        }
+        return typeTemp;
+    }
 
-        const statsTemp=[];
-        for (let i = 0; i < abilities.length; i++) {
-            const elementStatistics = stats[i];
-            let stat= new Stat(elementStatistics.stat.name,elementStatistics.base_stat)
-            statsTemp.push(/*elementStatistics*/stat)
-        }
+    constructor(name, type = [], stats = [], abilities = [], sprites) {
+        this.name = name;
+        this.type = type;
+        this.abilities = abilities;
+        this.sprites = sprites;
+        this.stats = stats;
+    }
 
-        const pokemonObj= new Pokemon(name, typeTemp, statsTemp, abilityTemp, sprites)
+
+
+
+    static createPokemon(pokemonObject) {
+
+        console.log(pokemonObject);
+
+        const pokemonObj = new Pokemon(pokemonObject.name, this.getTypes(pokemonObject.types), this.getStats(pokemonObject.stats), this.getAbilities(pokemonObject.abilities))
         return pokemonObj;
     }
 
@@ -78,20 +54,19 @@ class Pokemon{
 
 
 
-class Stat{
-    constructor(name, baseValue)
-        {
-        this.name=name;
-        this.baseValue=baseValue
-        }
+class Stat {
+    constructor(name, baseValue) {
+        this.name = name;
+        this.baseValue = baseValue
+    }
 
 }
 
 
-class Type{
-    constructor(name, url)
-        {
-        this.name=name;
-        this.url=url;
-        }
+class Type {
+    constructor(name, url) {
+        this.name = name;
+        this.url = url;
+    }
 }
+
