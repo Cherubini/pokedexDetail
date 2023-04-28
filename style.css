@@ -1,9 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+/* font-family: 'Press Start 2P', cursive;*/
+
 *{
     box-sizing: border-box;
+    font-family: 'Press Start 2P', cursive;
 }
 
 .pokeImg{
-    width: 40vw;
+    width: 20vw;
 }
 
 .pokemon-ref{

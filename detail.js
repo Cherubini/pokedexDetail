@@ -8,11 +8,9 @@ const urlSearchParams = new URLSearchParams(window.location.search);
 const pokemonName = urlSearchParams.get('pokemon');
 
 
-console.log(pokemonName);
-
 PokeService.getDetail(pokemonName).then(pokemonObject => {
-    const myPokemon = Pokemon.createPokemon(pokemonObject.name, pokemonObject.types, pokemonObject.abilities, pokemonObject.stats, pokemonObject.sprites.front_default);
-    imagePokemon(myPokemon);
+    const myPokemon = Pokemon.createPokemon(pokemonObject.name, pokemonObject.types, pokemonObject.stats, pokemonObject.abilities, pokemonObject.sprites.front_default);
+    
     displayPokemon(myPokemon);
 })
 
@@ -23,26 +21,48 @@ function displayPokemon(pokemon) {
     const pokedex = document.getElementById('section-div');
     pokedex.innerHTML+=`
         <section class="section-style">
-        <h1 class='title1'>${pokemon.name} </h1>
+        <h1 class='pokemon-name'>${pokemon.name} </h1>
             <img class='pokeImg' src='${pokemon.sprites}'>
             <div class="type-container">
                 <span>${createTypes(pokemon)}</span>
             </div>
-            <div class="ability-container">
+            <div class="abilities-container">
                 <details>
                     <summary> Ability </summary>
                     <p>${createAbilities(pokemon)}</p>
+                </details>
+            </div>            
+            <div class="statistics-container">
+                <details>
+                    <summary> Statistics </summary>
+                    <p>${createStatistics(pokemon)}</p>
                 </details>
             </div>
         </section>
     `    
 }
 function createTypes(pokemon) {
-    return pokemon.type.join();
+    let types='';
+    for (let i = 0; i < pokemon.type.length; i++) {
+        const element = pokemon.type[i];
+        console.log(element);
+        types+=element.name + ' ';        
+    }
+    return types;
 }
 
 function createAbilities(pokemon) {
     return pokemon.abilities.join();
+}
+
+function createStatistics(pokemon) {
+    let stats='';
+    for (let i = 0; i < pokemon.stats.length; i++) {
+        const element = pokemon.stats[i];
+        console.log(element);
+        stats+=element.name +': '+ element.baseValue+'. \n';        
+    }
+    return stats;
 }
 /* <section class="section-style">
             <img>
@@ -56,8 +76,4 @@ function createAbilities(pokemon) {
                 </details>
             </div>
         </section> */
-
-function imagePokemon(pokemon) {
-
-}
 
