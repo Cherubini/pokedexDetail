@@ -76,4 +76,3 @@ function createStatistics(pokemon) {
                 </details>
             </div>
         </section> */
-
